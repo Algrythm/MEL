@@ -22,9 +22,10 @@ int main(int argc, char *argv[]) {
     std::string fileContent;
     std::ifstream file(fileName);
     while (std::getline(file, fileContent)) { // iterate through lines
-        if (interpret(fileContent, curLine) != 0) { // if there is an error in interpretation
+        if (interpret(fileContent, curLine) == 1) { // if there is an error in interpretation
             return 0;
         }
+
         curLine++;
     }
     return 0;

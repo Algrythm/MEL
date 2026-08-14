@@ -6,9 +6,10 @@
 #include <sstream>
 #include <vector>
 #include <filesystem>
+#include "function.h"
 
 int interpret(std::string line, int lineNum) {
-    const console consoleInterp;
+    console consoleInterp;
 
     if (line.substr(0,7) == "console") { // console module
         if (line.substr(7,7) == "::push(") { // console::push();
@@ -22,12 +23,21 @@ int interpret(std::string line, int lineNum) {
         }
     } else if (line.substr(0,2) == "#-") { // comment
         return 0; // ignore
+    } else if (line.substr(0,7) == "#import") {
+        function functionHandler;
+        functionHandler.importFunctions(consoleInterp.parse(line, true, false, false, false));
+        return 0;
     } else if (line.substr(0,3) == ".s<") {
         consoleInterp.parse(line, false, true, false, true);
         return 0;
     } else if (line.substr(0,3) == ".f<") {
         consoleInterp.parse(line, false, false, true, true);
         return 0;
+    } else if (line.substr(0,5) == "call(") {
+        function functionHandler;
+        std::string funcName = consoleInterp.parse(line, true, false, false, false);
+        functionHandler.callFunction(funcName);
+        return 0; 
     } else { // syntax error (not recognized)
         std::cout << "!!MEL INTERPRETER SYNTAX ERROR!!\nLINE " + std::to_string(lineNum) << std::endl;
         std::cout << "'" + line + "'" + " is not recognized!" << std::endl;

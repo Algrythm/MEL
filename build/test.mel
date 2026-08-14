@@ -1,7 +1,3 @@
-.f<test2> = (123);
-.s<test> = ("Hello, World!");
-console::command("pause");
-console::push(f<test2>);
-console::push("Yes, it works!");
-console::push(1 + 2);
-console::push(s<test>);
+#import ("./func");
+call("test");
+console::push("Now im out of the func");

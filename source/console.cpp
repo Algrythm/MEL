@@ -3,7 +3,7 @@
 #include "expression.h"
 #include "variables.h"
 
-std::string console::parse(std::string string, bool isQuote, bool isVarStr, bool isVarFloat, bool createVar) const {
+std::string console::parse(std::string string, bool isQuote, bool isVarStr, bool isVarFloat, bool createVar) const { // parse variables, strings and numbers
     std::string parsed;
     if (isQuote) {
         unsigned start = string.find("(\"")+2; // start past opening quotes
