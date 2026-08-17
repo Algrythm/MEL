@@ -1,9 +1,7 @@
-#- func lib
-#import("func");
-console::push("Welcome to my program.");
+#import("melBase");
+.s<fPrompt> = ("What is your name? ");
+call("getName");
+console::command("cls");
+console::write("It is very nice to meet you ");
+console::push(i<fName>);
 call("pause");
-#- do input
-call("helloworld");
-call("pause");
-console::push("Now, I can access that var made in the f file in my mel file! So, I still know you are");
-console::push(i<test>);

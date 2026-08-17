@@ -14,9 +14,8 @@ void variables::createFloatVar(std::string name, float content) {
     floatVars[name] = content;
 }
 
-void variables::createInputVar(std::string name, std::string prompt) {
+void variables::createInputVar(std::string name) {
     std::string input;
-    std::cout << prompt << std::endl;
     std::cin >> input;
     inputVars[name] = input;
 }

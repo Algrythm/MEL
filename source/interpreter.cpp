@@ -16,8 +16,12 @@ int interpret(std::string line, int lineNum) {
             std::string coutString = consoleInterp.push(line); // call push function inside console class
             std::cout << coutString << std::endl; // cout result
             return 0;
+        } else if (line.substr(7,8) == "::write(") { // console::write();
+            std::string coutString = consoleInterp.push(line); // call push function inside console class
+            std::cout << coutString; // cout result WITHOUT newline or buffer flush
+            return 0;
         } else if (line.substr(7,10) == "::command(") { // console::command();
-            std::string commandString = consoleInterp.parse(line, true, false, false, false); // parse manually
+            std::string commandString = consoleInterp.parse(line, false); // parse manually
             consoleInterp.command(commandString.c_str()); // call system function inside console class
             return 0;
         }
@@ -25,20 +29,20 @@ int interpret(std::string line, int lineNum) {
         return 0; // ignore
     } else if (line.substr(0,7) == "#import") {
         function functionHandler;
-        functionHandler.importFunctions(consoleInterp.parse(line, true, false, false, false));
+        functionHandler.importFunctions(consoleInterp.parse(line, true));
         return 0;
     } else if (line.substr(0,3) == ".s<") {
-        consoleInterp.parse(line, false, true, false, true);
+        consoleInterp.parseStr(line, true);
         return 0;
     } else if (line.substr(0,3) == ".f<") {
-        consoleInterp.parse(line, false, false, true, true);
+        consoleInterp.parseFloat(line, true);
         return 0;
     } else if (line.substr(0,3) == ".i<") {
         consoleInterp.parseInput(line, true);
         return 0;
     } else if (line.substr(0,5) == "call(") {
         function functionHandler;
-        std::string funcName = consoleInterp.parse(line, true, false, false, false);
+        std::string funcName = consoleInterp.parse(line, true);
         functionHandler.callFunction(funcName);
         return 0; 
     } else { // syntax error (not recognized)
