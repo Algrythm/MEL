@@ -1,3 +1,9 @@
-#import ("./func");
-call("test");
-console::push("Now im out of the func");
+#- func lib
+#import("func");
+console::push("Welcome to my program.");
+call("pause");
+#- do input
+call("helloworld");
+call("pause");
+console::push("Now, I can access that var made in the f file in my mel file! So, I still know you are");
+console::push(i<test>);

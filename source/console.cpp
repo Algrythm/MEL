@@ -57,6 +57,28 @@ std::string console::parse(std::string string, bool isQuote, bool isVarStr, bool
     return parsed;
 }
 
+std::string console::parseInput(std::string string, bool createVar) const {
+    std::string parsed;
+    if (createVar) { // if creating the input variable
+        std::string parsedStr;
+        variables variableHandler;
+        unsigned start = string.find(".i<")+3; // start past opening
+        unsigned end = string.find(">"); // end before closing
+        unsigned startC = string.find("= (\"")+4; // start past opening content
+        unsigned endC = string.find("\");"); // end before closing content
+        parsed = string.substr(start,end-start);
+        parsedStr = string.substr(startC,endC-startC);
+        variableHandler.createInputVar(parsed, parsedStr);
+    } else { // if accessing premade input variable
+        variables variableHandler;
+        unsigned start = string.find("(i<")+3; // start past opening
+        unsigned end = string.find(">);"); // end before closing
+        parsed = string.substr(start,end-start); // get parsed variable name
+        parsed = variableHandler.getInputVar(parsed); // get variable content, and prepare it to be returned
+    }
+    return parsed;
+}
+
 std::string console::push(std::string string) const { // console::push logic
     std::string parsed; // parsed string to push
     if (string.find("(\"") != std::string::npos) { // pushing regular string
@@ -65,6 +87,8 @@ std::string console::push(std::string string) const { // console::push logic
         parsed = console::parse(string, false, true, false, false);
     } else if (string.find("(f<") != std::string::npos) { // pushing float variable
         parsed = console::parse(string, false, false, true, false); 
+    } else if (string.find("(i<") != std::string::npos) { // pushing input variable
+        parsed = console::parseInput(string, false);
     } else { // pushing numbers
         if (string.find("+") != std::string::npos) { // if pushing math
             const expression expInterp; // expression class

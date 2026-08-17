@@ -33,6 +33,9 @@ int interpret(std::string line, int lineNum) {
     } else if (line.substr(0,3) == ".f<") {
         consoleInterp.parse(line, false, false, true, true);
         return 0;
+    } else if (line.substr(0,3) == ".i<") {
+        consoleInterp.parseInput(line, true);
+        return 0;
     } else if (line.substr(0,5) == "call(") {
         function functionHandler;
         std::string funcName = consoleInterp.parse(line, true, false, false, false);
