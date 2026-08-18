@@ -18,7 +18,7 @@ std::string console::parse(std::string string, bool isQuote) const { // parse va
     return parsed;
 }
 
-std::string console::parseInput(std::string string, bool createVar) const {
+std::string console::parseInput(std::string string, bool createVar, bool getVal) const {
     std::string parsed;
     if (createVar) { // if creating the input variable
         std::string parsedStr;
@@ -32,12 +32,14 @@ std::string console::parseInput(std::string string, bool createVar) const {
         unsigned start = string.find("(i<")+3; // start past opening
         unsigned end = string.find(">);"); // end before closing
         parsed = string.substr(start,end-start); // get parsed variable name
-        parsed = variableHandler.getInputVar(parsed); // get variable content, and prepare it to be returned
+        if (getVal) {
+            parsed = variableHandler.getInputVar(parsed); // get variable content, and prepare it to be returned
+        }
     }
     return parsed;
 }
 
-std::string console::parseStr(std::string string, bool createVar) const {
+std::string console::parseStr(std::string string, bool createVar, bool getVal) const {
     std::string parsed;
     if (createVar) { // if creating the string variable
         std::string parsedStr;
@@ -54,12 +56,14 @@ std::string console::parseStr(std::string string, bool createVar) const {
         unsigned start = string.find("(s<")+3; // start past opening
         unsigned end = string.find(">);"); // end before closing
         parsed = string.substr(start,end-start); // get parsed variable name
-        parsed = variableHandler.getStringVar(parsed); // get variable content, and prepare it to be returned
+        if (getVal) {
+            parsed = variableHandler.getStringVar(parsed); // get variable content, and prepare it to be returned
+        }
     }
     return parsed;
 }
 
-std::string console::parseFloat(std::string string, bool createVar) const {
+std::string console::parseFloat(std::string string, bool createVar, bool getVal) const {
     std::string parsed;
     if (createVar) { // if creating the float variable
         std::string parsedFloatStr;
@@ -78,7 +82,9 @@ std::string console::parseFloat(std::string string, bool createVar) const {
         unsigned start = string.find("(f<")+3; // start past opening
         unsigned end = string.find(">)"); // end before closing
         parsed = string.substr(start,end-start); // get parsed variable name
-        parsed = std::to_string(variableHandler.getFloatVar(parsed)); // get variable content, and prepare it to be returned
+        if (getVal) {
+            parsed = std::to_string(variableHandler.getFloatVar(parsed)); // get variable content, and prepare it to be returned
+        }
     }
     return parsed;
 }
@@ -88,11 +94,11 @@ std::string console::push(std::string string) const { // console::push logic
     if (string.find("(\"") != std::string::npos) { // pushing regular string
         parsed = console::parse(string, true);
     } else if (string.find("(s<") != std::string::npos) { // pushing string variable
-        parsed = console::parseStr(string, false);
+        parsed = console::parseStr(string, false, true);
     } else if (string.find("(f<") != std::string::npos) { // pushing float variable
-        parsed = console::parseFloat(string, false);
+        parsed = console::parseFloat(string, false, true);
     } else if (string.find("(i<") != std::string::npos) { // pushing input variable
-        parsed = console::parseInput(string, false);
+        parsed = console::parseInput(string, false, true);
     } else { // pushing numbers
         if (string.find("+") != std::string::npos) { // if pushing math
             const expression expInterp; // expression class

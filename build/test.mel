@@ -1,7 +1,12 @@
+#- import melBase
 #import("melBase");
+
+#- create required prompt var for getName func and call it
 .s<fPrompt> = ("What is your name? ");
 call("getName");
+
+#- end seq
 console::command("cls");
 console::write("It is very nice to meet you ");
 console::push(i<fName>);
-call("pause");
+call("continue");

@@ -20,6 +20,18 @@ void variables::createInputVar(std::string name) {
     inputVars[name] = input;
 }
 
+void variables::removeStringVar(std::string name) {
+    stringVars.erase(name);
+}
+
+void variables::removeFloatVar(std::string name) {
+    floatVars.erase(name);
+}
+
+void variables::removeInputVar(std::string name) {
+    inputVars.erase(name);
+}
+
 std::string variables::getStringVar(std::string name) {
     return stringVars.at(name);
 }

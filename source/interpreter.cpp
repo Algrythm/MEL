@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <filesystem>
+#include "variables.h"
 #include "function.h"
 
 int interpret(std::string line, int lineNum) {
@@ -27,24 +28,35 @@ int interpret(std::string line, int lineNum) {
         }
     } else if (line.substr(0,2) == "#-") { // comment
         return 0; // ignore
+    } else if (line.substr(0,9) == "variables") {\
+        variables variableHandler;
+        if (line.substr(9,16) == "::remS(") {
+            variableHandler.removeStringVar(consoleInterp.parseStr(line, false, false));
+        } else if (line.substr(9,16) == "::remF(") {
+            variableHandler.removeFloatVar(consoleInterp.parseStr(line, false, false));
+        } else if (line.substr(9,16) == "::remI(") {
+            variableHandler.removeFloatVar(consoleInterp.parseInput(line, false, false));
+        }
     } else if (line.substr(0,7) == "#import") {
         function functionHandler;
         functionHandler.importFunctions(consoleInterp.parse(line, true));
         return 0;
     } else if (line.substr(0,3) == ".s<") {
-        consoleInterp.parseStr(line, true);
+        consoleInterp.parseStr(line, true, false);
         return 0;
     } else if (line.substr(0,3) == ".f<") {
-        consoleInterp.parseFloat(line, true);
+        consoleInterp.parseFloat(line, true, false);
         return 0;
     } else if (line.substr(0,3) == ".i<") {
-        consoleInterp.parseInput(line, true);
+        consoleInterp.parseInput(line, true, false);
         return 0;
     } else if (line.substr(0,5) == "call(") {
         function functionHandler;
         std::string funcName = consoleInterp.parse(line, true);
         functionHandler.callFunction(funcName);
-        return 0; 
+        return 0;
+    } else if (line == "") {
+        return 0; //ignore blank lines
     } else { // syntax error (not recognized)
         std::cout << "!!MEL INTERPRETER SYNTAX ERROR!!\nLINE " + std::to_string(lineNum) << std::endl;
         std::cout << "'" + line + "'" + " is not recognized!" << std::endl;
