@@ -9,4 +9,8 @@ call("getName");
 console::command("cls");
 console::write("It is very nice to meet you ");
 console::push(i<fName>);
+filesys::create("./test.txt");
+filesys::write("./test.txt", "Hello World!");
+filesys::read("./test.txt", s<fileC>);
+console::push(s<fileC>);
 call("continue");

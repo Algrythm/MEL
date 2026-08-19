@@ -2,6 +2,7 @@
 #include "console.h"
 #include "expression.h"
 #include "variables.h"
+#include "filesys.h"
 
 std::string console::parse(std::string string, bool isQuote) const { // parse variables, strings and numbers
     std::string parsed;
@@ -87,6 +88,40 @@ std::string console::parseFloat(std::string string, bool createVar, bool getVal)
         }
     }
     return parsed;
+}
+
+std::string console::parseFile(std::string string, bool isWrite, bool isCreate) const {
+    filesys fileSysHandler;
+    std::string parsed;
+    std::string parsedContent;
+    if (isWrite) {
+        unsigned start = string.find("(\"")+2; // start past opening
+        unsigned end = string.find("\","); // end before closing
+        parsed = string.substr(start,end-start); // get parsed file name
+        unsigned startC = string.find(", \"")+3; // start past opening
+        unsigned endC = string.find("\")"); // end before closing
+        parsedContent = string.substr(startC, endC-startC);
+        fileSysHandler.writeFile(parsed, parsedContent);
+    } else {
+        if (isCreate) {
+            unsigned start = string.find("(\"")+2; // start past opening
+            unsigned end = string.find("\")"); // end before closing
+            parsed = string.substr(start,end-start); // get parsed file name
+            fileSysHandler.createFile(parsed);
+        } else {
+            variables variableHandler;
+            std::string parsedVarName;
+            unsigned start = string.find("(\"")+2; // start past opening
+            unsigned end = string.find("\", "); // end before closing
+            unsigned startC = string.find(", s<")+4; // start past opening
+            unsigned endC = string.find(">)"); // end before closing
+            parsed = string.substr(start,end-start); // get parsed file name
+            parsedVarName = string.substr(startC, endC-startC);
+            parsedContent = fileSysHandler.readFile(parsed);
+            variableHandler.createStringVar(parsedVarName, parsedContent);
+        }
+    }
+    return parsedContent;
 }
 
 std::string console::push(std::string string) const { // console::push logic

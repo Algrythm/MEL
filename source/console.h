@@ -7,5 +7,6 @@ class console {
         std::string parseInput(std::string string, bool createVar, bool getVal) const;
         std::string parseStr(std::string string, bool createVar, bool getVal) const;
         std::string parseFloat(std::string string, bool createVar, bool getVal) const;
+        std::string parseFile(std::string string, bool isWrite, bool isCreate) const;
         void command(std::string consoleCommand) const;
 };

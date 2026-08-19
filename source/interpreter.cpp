@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include <filesystem>
+#include "filesys.h"
 #include "variables.h"
 #include "function.h"
 
@@ -56,6 +57,14 @@ int interpret(std::string line, int lineNum) {
             std::string funcName = consoleInterp.parse(line, true);
             functionHandler.callFunction(funcName);
             return 0;
+        } else if (line.substr(0,7) == "filesys") {
+            if (line.substr(7,7) == "::write") {
+                consoleInterp.parseFile(line, true, false);
+            } else if (line.substr(7,6) == "::read") {
+                consoleInterp.parseFile(line, false, false);
+            } else if (line.substr(7,8) == "::create") {
+                consoleInterp.parseFile(line, false, true);
+            }
         } else if (line == "") {
             return 0; //ignore blank lines
         } else { // syntax error (not recognized)
