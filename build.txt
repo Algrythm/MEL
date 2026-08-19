@@ -1,1 +1,2 @@
+run this in source directory
 g++ -static main.cpp interpreter.cpp console.cpp expression.cpp variables.cpp function.cpp filesys.cpp -o ../build/mel.exe
