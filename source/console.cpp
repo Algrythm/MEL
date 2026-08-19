@@ -124,6 +124,98 @@ std::string console::parseFile(std::string string, bool isWrite, bool isCreate) 
     return parsedContent;
 }
 
+bool console::parseIf(std::string string, bool notIf) const {
+    if (notIf) { // if checking if NOT value
+        std::string parsedFirst;
+        std::string parsedSecond;
+        variables variableHandler;
+        unsigned start = string.find("(")+1; // start past opening
+        unsigned end = string.find(" == "); // end before closing
+        unsigned start2 = string.find(" == ")+4; // start past opening
+        unsigned end2 = string.find(")"); // end before closing
+        parsedFirst = string.substr(start, end-start);
+        parsedSecond = string.substr(start2, end2-start2);
+        if (parsedFirst.find("s<") != std::string::npos) { // variable type checks
+            start = parsedFirst.find("s<")+2;
+            end = parsedFirst.find(">");
+            parsedFirst = parsedFirst.substr(start, end-start);
+            parsedFirst = variableHandler.getStringVar(parsedFirst);
+        } else if (parsedFirst.find("i<") != std::string::npos) {
+            start = parsedFirst.find("i<")+2;
+            end = parsedFirst.find(">");
+            parsedFirst = parsedFirst.substr(start, end-start);
+            parsedFirst = variableHandler.getInputVar(parsedFirst);
+        } else if (parsedFirst.find("f<") != std::string::npos) {
+            start = parsedFirst.find("f<")+2;
+            end = parsedFirst.find(">");
+            parsedFirst = parsedFirst.substr(start, end-start);
+            parsedFirst = std::to_string(variableHandler.getFloatVar(parsedFirst));
+        }
+        if (parsedSecond.find("s<") != std::string::npos) { // variable type checks
+            start2 = parsedSecond.find("s<")+2;
+            end2 = parsedSecond.find(">");
+            parsedSecond = parsedSecond.substr(start2, end2-start2);
+            parsedSecond = variableHandler.getStringVar(parsedSecond);
+        } else if (parsedSecond.find("i<") != std::string::npos) {
+            start2 = parsedSecond.find("i<")+2;
+            end2 = parsedSecond.find(">");
+            parsedSecond = parsedSecond.substr(start2, end2-start2);
+            parsedSecond = variableHandler.getInputVar(parsedSecond);
+        } else if (parsedSecond.find("f<") != std::string::npos) {
+            start2 = parsedSecond.find("f<")+2;
+            end2 = parsedSecond.find(">");
+            parsedSecond = parsedSecond.substr(start2, end2-start2);
+            parsedSecond = std::to_string(variableHandler.getFloatVar(parsedSecond));
+        }
+
+        if (parsedFirst == parsedSecond) {return false;} else {return true;} // if not logic
+    } else { // checking IF value
+        std::string parsedFirst;
+        std::string parsedSecond;
+        variables variableHandler;
+        unsigned start = string.find("(")+1; // start past opening
+        unsigned end = string.find(" == "); // end before closing
+        unsigned start2 = string.find(" == ")+4; // start past opening
+        unsigned end2 = string.find(")"); // end before closing
+        parsedFirst = string.substr(start, end-start);
+        parsedSecond = string.substr(start2, end2-start2);
+        if (parsedFirst.find("s<") != std::string::npos) { // variable type checks
+            start = parsedFirst.find("s<")+2;
+            end = parsedFirst.find(">");
+            parsedFirst = parsedFirst.substr(start, end-start);
+            parsedFirst = variableHandler.getStringVar(parsedFirst);
+        } else if (parsedFirst.find("i<") != std::string::npos) {
+            start = parsedFirst.find("i<")+2;
+            end = parsedFirst.find(">");
+            parsedFirst = parsedFirst.substr(start, end-start);
+            parsedFirst = variableHandler.getInputVar(parsedFirst);
+        } else if (parsedFirst.find("f<") != std::string::npos) {
+            start = parsedFirst.find("f<")+2;
+            end = parsedFirst.find(">");
+            parsedFirst = parsedFirst.substr(start, end-start);
+            parsedFirst = std::to_string(variableHandler.getFloatVar(parsedFirst));
+        }
+        if (parsedSecond.find("s<") != std::string::npos) { // variable type checks
+            start2 = parsedSecond.find("s<")+2;
+            end2 = parsedSecond.find(">");
+            parsedSecond = parsedSecond.substr(start2, end2-start2);
+            parsedSecond = variableHandler.getStringVar(parsedSecond);
+        } else if (parsedSecond.find("i<") != std::string::npos) {
+            start2 = parsedSecond.find("i<")+2;
+            end2 = parsedSecond.find(">");
+            parsedSecond = parsedSecond.substr(start2, end2-start2);
+            parsedSecond = variableHandler.getInputVar(parsedSecond);
+        } else if (parsedSecond.find("f<") != std::string::npos) {
+            start2 = parsedSecond.find("f<")+2;
+            end2 = parsedSecond.find(">");
+            parsedSecond = parsedSecond.substr(start2, end2-start2);
+            parsedSecond = std::to_string(variableHandler.getFloatVar(parsedSecond));
+        }
+
+        if (parsedFirst == parsedSecond) {return true;} else {return false;} // if logic
+    }
+}
+
 std::string console::push(std::string string) const { // console::push logic
     std::string parsed; // parsed string to push
     if (string.find("(\"") != std::string::npos) { // pushing regular string

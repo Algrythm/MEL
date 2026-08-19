@@ -1,16 +1,25 @@
-#- import melBase
-#import("melBase");
-
-#- create required prompt var for getName func and call it
-.s<fPrompt> = ("What is your name? ");
-call("getName");
-
-#- end seq
+console::write("Please enter your username: ");
+.i<username>;
 console::command("cls");
-console::write("It is very nice to meet you ");
-console::push(i<fName>);
-filesys::create("./test.txt");
-filesys::write("./test.txt", "Hello World!");
-filesys::read("./test.txt", s<fileC>);
-console::push(s<fileC>);
-call("continue");
+console::write("Please enter your password: ");
+.i<password>;
+console::command("cls");
+console::push("Welcome to sign in!");
+console::write("Please enter your account name: ");
+.i<enterName>;
+
+ifn(i<enterName> == i<username>)
+BEGINIF{
+    console::push("That account doesn't exist!");
+    terminate(); 
+}ENDIF
+console::write("Please enter your account password: ");
+.i<enterPass>;
+ifn(i<enterPass> == i<password>)
+BEGINIF{
+    console::push("Incorect password!");
+    terminate();
+}ENDIF
+
+console::write("Welcome to your account, ");
+console::push(i<username>);
