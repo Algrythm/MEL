@@ -41,12 +41,12 @@ int interpret(std::string line, int lineNum) {
                 return 0; // ignore
             } else if (line.substr(0,9) == "variables") { // variable module
                 variables variableHandler;
-                if (line.substr(9,16) == "::remS(") {
+                if (line.substr(9,7) == "::remS(") {
                     variableHandler.removeStringVar(consoleInterp.parseStr(line, false, false));
-                } else if (line.substr(9,16) == "::remF(") {
+                } else if (line.substr(9,7) == "::remF(") {
                     variableHandler.removeFloatVar(consoleInterp.parseStr(line, false, false));
-                } else if (line.substr(9,16) == "::remI(") {
-                    variableHandler.removeFloatVar(consoleInterp.parseInput(line, false, false));
+                } else if (line.substr(9,7) == "::remI(") {
+                    variableHandler.removeInputVar(consoleInterp.parseInput(line, false, false));
                 }
             } else if (line.substr(0,3) == "if(") {
                 ifSkip = !consoleInterp.parseIf(line, false); // negative parseif to determine whether to skip

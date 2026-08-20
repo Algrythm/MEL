@@ -48,7 +48,7 @@ std::string console::parseStr(std::string string, bool createVar, bool getVal) c
         unsigned start = string.find(".s<")+3; // start past opening
         unsigned end = string.find(">"); // end before closing
         unsigned startC = string.find("= (\"")+4; // start past opening content
-        unsigned endC = string.find(");")-2; // end before closing content
+        unsigned endC = string.find(");")-1; // end before closing content
         parsed = string.substr(start,end-start);
         parsedStr = string.substr(startC,endC-startC);
         variableHandler.createStringVar(parsed, parsedStr);
