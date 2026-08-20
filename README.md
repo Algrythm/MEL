@@ -15,4 +15,4 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 MEL: Modifiable Entry-Level Language. This is a small interpreted language I made for fun. It will grow in the future.
 
-MELPlus is the C++ version, however, the original MEL version was made in Python.
+MEL is the C++ version, however, the original MEL version was made in Python, which is now called MELPy.
