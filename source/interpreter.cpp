@@ -70,6 +70,9 @@ int interpret(std::string line, int lineNum) {
                 std::string funcName = consoleInterp.parse(line, true);
                 functionHandler.callFunction(funcName);
                 return 0;
+            } else if (line.substr(0,6) == "rcall(") {
+                consoleInterp.parseRCall(line);
+                return 0;
             } else if (line.substr(0,11) == "terminate()") {
                 exit(0);
             } else if (line.substr(0,7) == "filesys") {

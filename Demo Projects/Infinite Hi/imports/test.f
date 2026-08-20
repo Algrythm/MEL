@@ -1,0 +1,1 @@
+console::push("Hi");

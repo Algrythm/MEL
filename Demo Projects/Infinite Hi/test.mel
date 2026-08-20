@@ -1,0 +1,2 @@
+#import("imports");
+rcall("test", ||inf||);

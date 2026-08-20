@@ -3,6 +3,9 @@
 #include "expression.h"
 #include "variables.h"
 #include "filesys.h"
+#include "function.h"
+#include <limits>
+
 
 std::string console::parse(std::string string, bool isQuote) const { // parse variables, strings and numbers
     std::string parsed;
@@ -62,6 +65,23 @@ std::string console::parseStr(std::string string, bool createVar, bool getVal) c
         }
     }
     return parsed;
+}
+
+void console::parseRCall(std::string string) const {
+    function functionHandler;
+    std::string parsedName;
+    int parsedRepeats;
+    unsigned start = string.find("(\"")+2; // start past opening
+    unsigned end = string.find("\", "); // end before closing
+    unsigned start2 = string.find(", ")+2; // start past opening
+    unsigned end2 = string.find(");"); // end before closing
+    parsedName = string.substr(start,end-start);
+    if (string.substr(start2, end2-start2) == "||inf||") {
+        parsedRepeats = std::numeric_limits<int>::max();
+    } else {
+        parsedRepeats = std::stoi(string.substr(start2, end2-start2));
+    }
+    functionHandler.rcallFunction(parsedName, parsedRepeats);
 }
 
 std::string console::parseFloat(std::string string, bool createVar, bool getVal) const {
