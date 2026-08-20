@@ -1,0 +1,4 @@
+#import("imports");
+console::push("Please enter an epoch date, and we will tell you when it is currently that time!");
+.i<timeC>;
+rcall("time", ||inf||);
