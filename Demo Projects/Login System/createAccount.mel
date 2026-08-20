@@ -1,0 +1,23 @@
+#import("imports");
+
+#- get username and password
+console::push("Welcome to the account creator!");
+console::write("Please enter your account name: ");
+.i<username>;
+
+console::write("Thanks! Now, please enter the account password: ");
+.i<password>;
+
+#- save to files
+filesys::create("username.txt");
+filesys::create("password.txt");
+filesys::write("username.txt", i<username>);
+filesys::write("password.txt", i<password>);
+
+#- remove variables
+variables::remI(i<username>);
+variables::remI(i<password>);
+
+#- login
+console::command("cls");
+call("login");

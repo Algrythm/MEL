@@ -30,8 +30,8 @@ std::string console::parseInput(std::string string, bool createVar, bool getVal)
         variableHandler.createInputVar(parsed);
     } else { // if accessing premade input variable
         variables variableHandler;
-        unsigned start = string.find("(i<")+3; // start past opening
-        unsigned end = string.find(">);"); // end before closing
+        unsigned start = string.find("i<")+2; // start past opening
+        unsigned end = string.find(">"); // end before closing
         parsed = string.substr(start,end-start); // get parsed variable name
         if (getVal) {
             parsed = variableHandler.getInputVar(parsed); // get variable content, and prepare it to be returned
@@ -54,8 +54,8 @@ std::string console::parseStr(std::string string, bool createVar, bool getVal) c
         variableHandler.createStringVar(parsed, parsedStr);
     } else { // if accessing premade string variable
         variables variableHandler;
-        unsigned start = string.find("(s<")+3; // start past opening
-        unsigned end = string.find(">);"); // end before closing
+        unsigned start = string.find("s<")+2; // start past opening
+        unsigned end = string.find(">"); // end before closing
         parsed = string.substr(start,end-start); // get parsed variable name
         if (getVal) {
             parsed = variableHandler.getStringVar(parsed); // get variable content, and prepare it to be returned
@@ -80,8 +80,8 @@ std::string console::parseFloat(std::string string, bool createVar, bool getVal)
         variableHandler.createFloatVar(parsed, parsedFloat);
     } else { // if accessing premade float variable
         variables variableHandler;
-        unsigned start = string.find("(f<")+3; // start past opening
-        unsigned end = string.find(">)"); // end before closing
+        unsigned start = string.find("f<")+2; // start past opening
+        unsigned end = string.find(">"); // end before closing
         parsed = string.substr(start,end-start); // get parsed variable name
         if (getVal) {
             parsed = std::to_string(variableHandler.getFloatVar(parsed)); // get variable content, and prepare it to be returned
@@ -90,17 +90,27 @@ std::string console::parseFloat(std::string string, bool createVar, bool getVal)
     return parsed;
 }
 
-std::string console::parseFile(std::string string, bool isWrite, bool isCreate) const {
+std::string console::parseFile(std::string string, bool isWrite, bool isCreate, bool isDel) const {
     filesys fileSysHandler;
+    variables variableHandler;
     std::string parsed;
     std::string parsedContent;
     if (isWrite) {
         unsigned start = string.find("(\"")+2; // start past opening
         unsigned end = string.find("\","); // end before closing
         parsed = string.substr(start,end-start); // get parsed file name
-        unsigned startC = string.find(", \"")+3; // start past opening
-        unsigned endC = string.find("\")"); // end before closing
+        unsigned startC = string.find(", ")+2; // start past opening
+        unsigned endC = string.find(");"); // end before closing
         parsedContent = string.substr(startC, endC-startC);
+        if (parsedContent.find("s<") != std::string::npos) {
+            parsedContent = console::parseStr(parsedContent, false, true);
+        } else if (parsedContent.find("i<") != std::string::npos) {
+            parsedContent = console::parseInput(parsedContent, false, true);
+        } else {
+            startC = parsedContent.find(", \"")+3;
+            endC = parsedContent.find("\")");
+            parsedContent = parsedContent.substr(startC, endC-startC);
+        }
         fileSysHandler.writeFile(parsed, parsedContent);
     } else {
         if (isCreate) {
@@ -108,6 +118,11 @@ std::string console::parseFile(std::string string, bool isWrite, bool isCreate) 
             unsigned end = string.find("\")"); // end before closing
             parsed = string.substr(start,end-start); // get parsed file name
             fileSysHandler.createFile(parsed);
+        } else if (isDel) {
+            unsigned start = string.find("(\"")+2; // start past opening
+            unsigned end = string.find("\")"); // end before closing
+            parsed = string.substr(start,end-start); // get parsed file name
+            fileSysHandler.removeFile(parsed);
         } else {
             variables variableHandler;
             std::string parsedVarName;

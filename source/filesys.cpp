@@ -1,6 +1,7 @@
 #include <iostream>
 #include "filesys.h"
 #include <fstream>
+#include <filesystem>
 
 void filesys::createFile(std::string name) {
     std::ofstream file(name);
@@ -18,4 +19,8 @@ std::string filesys::readFile(std::string name) {
     std::string content;
     std::getline(file, content);
     return content;
+}
+
+void filesys::removeFile(std::string name) {
+    std::filesystem::remove(name);
 }
