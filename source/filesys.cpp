@@ -2,6 +2,7 @@
 #include "filesys.h"
 #include <fstream>
 #include <filesystem>
+#include <regex>
 
 void filesys::createFile(std::string name) {
     std::ofstream file(name);

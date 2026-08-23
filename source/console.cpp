@@ -7,7 +7,7 @@
 #include <limits>
 
 
-std::string console::parse(std::string string, bool isQuote) const { // parse variables, strings and numbers
+std::string console::parse(std::string string, bool isQuote) { // parse variables, strings and numbers
     std::string parsed;
     if (isQuote) {
         unsigned start = string.find("(\"")+2; // start past opening quotes
@@ -22,7 +22,7 @@ std::string console::parse(std::string string, bool isQuote) const { // parse va
     return parsed;
 }
 
-std::string console::parseInput(std::string string, bool createVar, bool getVal) const {
+std::string console::parseInput(std::string string, bool createVar, bool getVal) {
     std::string parsed;
     if (createVar) { // if creating the input variable
         std::string parsedStr;
@@ -43,7 +43,7 @@ std::string console::parseInput(std::string string, bool createVar, bool getVal)
     return parsed;
 }
 
-std::string console::parseStr(std::string string, bool createVar, bool getVal) const {
+std::string console::parseStr(std::string string, bool createVar, bool getVal) {
     std::string parsed;
     if (createVar) { // if creating the string variable
         std::string parsedStr;
@@ -67,7 +67,7 @@ std::string console::parseStr(std::string string, bool createVar, bool getVal) c
     return parsed;
 }
 
-void console::parseRCall(std::string string) const {
+void console::parseRCall(std::string string) {
     function functionHandler;
     std::string parsedName;
     int parsedRepeats;
@@ -84,7 +84,7 @@ void console::parseRCall(std::string string) const {
     functionHandler.rcallFunction(parsedName, parsedRepeats);
 }
 
-std::string console::parseFloat(std::string string, bool createVar, bool getVal) const {
+std::string console::parseFloat(std::string string, bool createVar, bool getVal) {
     std::string parsed;
     if (createVar) { // if creating the float variable
         std::string parsedFloatStr;
@@ -110,7 +110,7 @@ std::string console::parseFloat(std::string string, bool createVar, bool getVal)
     return parsed;
 }
 
-std::string console::parseFile(std::string string, bool isWrite, bool isCreate, bool isDel) const {
+std::string console::parseFile(std::string string, bool isWrite, bool isCreate, bool isDel) {
     filesys fileSysHandler;
     variables variableHandler;
     std::string parsed;
@@ -127,9 +127,9 @@ std::string console::parseFile(std::string string, bool isWrite, bool isCreate, 
         } else if (parsedContent.find("i<") != std::string::npos) {
             parsedContent = console::parseInput(parsedContent, false, true);
         } else {
-            startC = parsedContent.find(", \"")+3;
-            endC = parsedContent.find("\")");
-            parsedContent = parsedContent.substr(startC, endC-startC);
+            startC = string.find(", \"")+3; // access string instead of parsedcontent
+            endC = string.find("\")");
+            parsedContent = string.substr(startC, endC-startC);
         }
         fileSysHandler.writeFile(parsed, parsedContent);
     } else {
@@ -159,7 +159,7 @@ std::string console::parseFile(std::string string, bool isWrite, bool isCreate, 
     return parsedContent;
 }
 
-bool console::parseIf(std::string string, bool notIf) const {
+bool console::parseIf(std::string string, bool notIf) {
     if (notIf) { // if checking if NOT value
         std::string parsedFirst;
         std::string parsedSecond;
@@ -251,7 +251,7 @@ bool console::parseIf(std::string string, bool notIf) const {
     }
 }
 
-std::string console::push(std::string string) const { // console::push logic
+std::string console::push(std::string string) { // console::push logic
     std::string parsed; // parsed string to push
     if (string.find("(\"") != std::string::npos) { // pushing regular string
         parsed = console::parse(string, true);
@@ -272,6 +272,6 @@ std::string console::push(std::string string) const { // console::push logic
     return parsed;
 }
 
-void console::command(std::string consoleCommand) const { // execute system command
+void console::command(std::string consoleCommand) { // execute system command
     std::system(consoleCommand.c_str());
 }
