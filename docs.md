@@ -110,15 +110,15 @@ Terminate the interpretation.
 
 
 
-##### .i<variableName>;
+##### .i\<variableName\>;
 
 Take user input from the terminal, and save it to the input varmap.
 
-##### .s<variableName> = ("variableContent");
+##### .s\<variableName\> = ("variableContent");
 
 Save a string to the string varmap.
 
-##### .f<variableName> = (123);
+##### .f\<variableName\> = (123);
 
 Save a float to the float varmap.
 
