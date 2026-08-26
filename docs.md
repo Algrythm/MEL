@@ -104,6 +104,13 @@ If the two operands are NOT equal, execute the code between BEGINIF{ and }ENDIF.
 
 Terminate the interpretation.
 
+##### ||inf||
+
+Greatest possible number.
+
+##### s\<sys::curTime\>
+
+String version of the current epoch time.
 
 
 ## Variables
