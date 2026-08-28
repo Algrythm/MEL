@@ -112,6 +112,10 @@ Greatest possible number.
 
 String version of the current epoch time.
 
+##### Indentation
+
+The MEL Interpreter is only built to handle indents that consist of 4 spaces. Any more or less will cause errors, and it is highly recommended that you either only use 4 space indents or do not use indentation at all. The MEL Interpreter does not need indentation to complete parsing.
+
 
 ## Variables
 
