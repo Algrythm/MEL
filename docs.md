@@ -106,7 +106,7 @@ Terminate the interpretation.
 
 ##### ||max||
 
-Greatest possible number.
+Greatest possible number on the current system. Generally 2147483647 on modern devices.
 
 ##### s\<sys::curTime\>
 
