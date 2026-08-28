@@ -76,7 +76,7 @@ void console::parseRCall(std::string string) {
     unsigned start2 = string.find(", ")+2; // start past opening
     unsigned end2 = string.find(");"); // end before closing
     parsedName = string.substr(start,end-start);
-    if (string.substr(start2, end2-start2) == "||inf||") {
+    if (string.substr(start2, end2-start2) == "||max||") {
         parsedRepeats = std::numeric_limits<int>::max();
     } else {
         parsedRepeats = std::stoi(string.substr(start2, end2-start2));

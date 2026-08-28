@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
     variables variableHandler;
     std::string fileName = getFileName(argc, argv); // call getfilename to either pull from arguments or input
     if (fileName == "none") {return 0;}
-    int curLine = 0; // track current line
+    int curLine = 0; // track current line to pass to interpreter
     std::string fileContent;
     std::ifstream file(fileName);
     while (std::getline(file, fileContent)) { // iterate through lines
