@@ -104,7 +104,7 @@ If the two operands are NOT equal, execute the code between BEGINIF{ and }ENDIF.
 
 Terminate the interpretation.
 
-##### ||inf||
+##### ||max||
 
 Greatest possible number.
 
