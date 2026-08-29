@@ -13,6 +13,6 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ## DESCRIPTION:
 
-MEL: Modifiable Entry-Level Language. This is a small interpreted language I made for fun. It will grow in the future.
+MEL: Modifiable Entry-Level Language. This is a small interpreted language I made for fun. It will grow with time.
 
 MEL is the C++ version, however, the original MEL version was made in Python. It is now called MELPy.
