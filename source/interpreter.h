@@ -1,4 +1,3 @@
-// melplus
 #include <iostream>
 #include <fstream>
 

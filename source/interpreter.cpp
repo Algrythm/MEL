@@ -9,11 +9,13 @@
 #include "filesys.h"
 #include "variables.h"
 #include "function.h"
+#include "error.h"
 
 bool ifSkip = false;
 
 int interpret(std::string line, int lineNum) {
     console consoleInterp;
+    error errorHandler;
     if (line.find("    ") != std::string::npos) { // remove indents
         line = line.substr(4,line.length()-4);
     }
@@ -90,15 +92,11 @@ int interpret(std::string line, int lineNum) {
             } else if (line.substr(0,8) == "BEGINIF{" || line.substr(0,6) == "}ENDIF") {
                 return 0; // ignore
             } else { // syntax error (not recognized)
-                std::cout << "!!MEL INTERPRETER SYNTAX ERROR!!\nLINE " + std::to_string(lineNum) << std::endl;
-                std::cout << "'" + line + "'" + " is not recognized!" << std::endl;
-                return 1; // return 1 to indicate error to main
+                errorHandler.throwError(1, lineNum, line);
             }
         }
     } catch(int errorcode) {
-        std::cout << "!!MEL INTERPRETER ERROR!!\nLINE " + std::to_string(lineNum) << std::endl;
-        std::cout << "ERROR CODE: " + std::to_string(errorcode) << std::endl;
-        return 1; // return 1 to indicate error to main
+        errorHandler.throwError(errorcode, lineNum, line);
     }
     return 0;
 }
