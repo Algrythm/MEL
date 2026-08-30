@@ -74,7 +74,7 @@ Remove a file from the file system.
 
 
 
-## Core features
+## Misc features
 
 ##### Comments
 
@@ -90,7 +90,7 @@ Call a function in your imported functions directory.
 
 ##### rcall(type: string\[Function Name], type: int\[Repeat Count]);
 
-Repeat call a function in your imported functions directory a set amount of times, or ||inf||.
+Repeatedly call a function in your imported functions directory a set amount of times, or ||max||.
 
 ##### if(operand1 == operand2)
 
