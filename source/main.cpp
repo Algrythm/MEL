@@ -6,7 +6,7 @@
 #include "variables.h"
 #include <cstring>
 
-std::string version = "MEL V0.1.5";
+std::string version = "MEL V0.1.6";
 
 std::string getFileName(int argc, char *argv[]) {
     std::string fileName;
