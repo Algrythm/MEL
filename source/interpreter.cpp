@@ -93,10 +93,12 @@ int interpret(std::string line, int lineNum) {
                 return 0; // ignore
             } else { // syntax error (not recognized)
                 errorHandler.throwError(1, lineNum, line);
+                return 1;
             }
         }
     } catch(int errorcode) {
         errorHandler.throwError(errorcode, lineNum, line);
+        return 1;
     }
     return 0;
 }
