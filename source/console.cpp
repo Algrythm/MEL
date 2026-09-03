@@ -7,7 +7,7 @@
 #include <limits>
 
 
-std::string console::parse(const std::string &string, bool isQuote) { // parse variables, strings and numbers
+std::string console::parse(const std::string &string, const bool isQuote) { // parse variables, strings and numbers
     std::string parsed;
     if (isQuote) {
         unsigned start = string.find("(\"")+2; // start past opening quotes
