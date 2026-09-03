@@ -2,7 +2,7 @@
 
 class function {
     public:
-        int callFunction(std::string name);
-        int rcallFunction(std::string name, int repeats);
-        void importFunctions(std::string dir);
+        int callFunction(const std::string &name);
+        int rcallFunction(const std::string &name, const int repeats);
+        void importFunctions(const std::string &dir);
 };

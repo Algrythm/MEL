@@ -7,7 +7,7 @@
 
 std::string funcDir;
 
-int function::callFunction(std::string name) { // locate function in preimported function directory and interpret it
+int function::callFunction(const std::string &name) { // locate function in preimported function directory and interpret it
     int curLine = 0;
     std::ifstream file(funcDir + "/" + name + ".f");
     std::string funcContent;
@@ -20,7 +20,7 @@ int function::callFunction(std::string name) { // locate function in preimported
     return 0;
 }
 
-int function::rcallFunction(std::string name, int repeats) { // locate function in preimported function directory and interpret the amount of times specified
+int function::rcallFunction(const std::string &name, const int repeats) { // locate function in preimported function directory and interpret the amount of times specified
     int curLine = 0;;
     time_t curTime;
     variables variableHandler;
@@ -40,6 +40,6 @@ int function::rcallFunction(std::string name, int repeats) { // locate function 
     return 0;
 }
 
-void function::importFunctions(std::string dir) { // save func directory
+void function::importFunctions(const std::string &dir) { // save func directory
     funcDir = dir;
 }

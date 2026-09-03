@@ -1,7 +1,7 @@
 #include <iostream>
 #include "error.h"
 
-void error::throwError(int errorCode, int lineNum, std::string line) const {
+void error::throwError(const int errorCode, const int lineNum, const std::string &line) const {
     switch (errorCode) {
         case 1:
             std::cout << "!!MEL INTERPRETER SYNTAX ERROR!!\nLINE " + std::to_string(lineNum) << std::endl;

@@ -3,7 +3,7 @@
 #include <vector>
 #include <sstream>
 
-float expression::parseExpression(std::string expString) const {
+float expression::parseExpression(const std::string &expString) const {
     int iterations = 0;
     float solvedFloat = 0;
     std::stringstream ss(expString);

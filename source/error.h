@@ -2,5 +2,5 @@
 
 class error {
     public:
-        void throwError(int errorCode, int lineNum, std::string line) const;
+        void throwError(const int errorCode, const int lineNum, const std::string &line) const;
 };

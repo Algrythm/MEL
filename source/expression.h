@@ -3,5 +3,5 @@
 
 class expression {
     public:
-        float parseExpression(std::string expString) const;
+        float parseExpression(const std::string &expString) const;
 };

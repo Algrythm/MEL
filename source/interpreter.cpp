@@ -13,7 +13,7 @@
 
 bool ifSkip = false;
 
-int interpret(std::string line, int lineNum) {
+int interpret(std::string line, const int lineNum) {
     console consoleInterp;
     error errorHandler;
     if (line.find("    ") != std::string::npos) { // remove indents

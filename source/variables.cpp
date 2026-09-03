@@ -6,40 +6,40 @@ std::map<std::string, std::string> stringVars;
 std::map<std::string, float> floatVars;
 std::map<std::string, std::string> inputVars;
 
-void variables::createStringVar(std::string name, std::string content) {
+void variables::createStringVar(const std::string &name, const std::string &content) {
     stringVars[name] = content;
 }
 
-void variables::createFloatVar(std::string name, float content) {
+void variables::createFloatVar(const std::string &name, const float content) {
     floatVars[name] = content;
 }
 
-void variables::createInputVar(std::string name) {
+void variables::createInputVar(const std::string &name) {
     char input[100];
     std::cin.getline(input, sizeof(input));
     inputVars[name] = input;
 }
 
-void variables::removeStringVar(std::string name) {
+void variables::removeStringVar(const std::string &name) {
     stringVars.erase(name);
 }
 
-void variables::removeFloatVar(std::string name) {
+void variables::removeFloatVar(const std::string &name) {
     floatVars.erase(name);
 }
 
-void variables::removeInputVar(std::string name) {
+void variables::removeInputVar(const std::string &name) {
     inputVars.erase(name);
 }
 
-std::string variables::getStringVar(std::string name) {
+std::string variables::getStringVar(const std::string &name) {
     return stringVars.at(name);
 }
 
-std::string variables::getInputVar(std::string name) {
+std::string variables::getInputVar(const std::string &name) {
     return inputVars.at(name);
 }
 
-float variables::getFloatVar(std::string name) {
+float variables::getFloatVar(const std::string &name) {
     return floatVars.at(name);
 }

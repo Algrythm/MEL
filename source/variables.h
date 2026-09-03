@@ -3,13 +3,13 @@
 
 class variables {
     public:
-        void createStringVar(std::string name, std::string content);
-        void createFloatVar(std::string name, float content);
-        void createInputVar(std::string name);
-        void removeStringVar(std::string name);
-        void removeFloatVar(std::string name);
-        void removeInputVar(std::string name);
-        std::string getStringVar(std::string name);
-        std::string getInputVar(std::string name);
-        float getFloatVar(std::string name);
+        void createStringVar(const std::string &name, const std::string &content);
+        void createFloatVar(const std::string &name, const float content);
+        void createInputVar(const std::string &name);
+        void removeStringVar(const std::string &name);
+        void removeFloatVar(const std::string &name);
+        void removeInputVar(const std::string &name);
+        std::string getStringVar(const std::string &name);
+        std::string getInputVar(const std::string &name);
+        float getFloatVar(const std::string &name);
 };

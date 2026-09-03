@@ -7,7 +7,7 @@
 #include <limits>
 
 
-std::string console::parse(std::string string, bool isQuote) { // parse variables, strings and numbers
+std::string console::parse(const std::string &string, bool isQuote) { // parse variables, strings and numbers
     std::string parsed;
     if (isQuote) {
         unsigned start = string.find("(\"")+2; // start past opening quotes
@@ -22,7 +22,7 @@ std::string console::parse(std::string string, bool isQuote) { // parse variable
     return parsed;
 }
 
-std::string console::parseInput(std::string string, bool createVar, bool getVal) {
+std::string console::parseInput(const std::string &string, const bool createVar, const bool getVal) {
     std::string parsed;
     if (createVar) { // if creating the input variable
         std::string parsedStr;
@@ -43,7 +43,7 @@ std::string console::parseInput(std::string string, bool createVar, bool getVal)
     return parsed;
 }
 
-std::string console::parseStr(std::string string, bool createVar, bool getVal) {
+std::string console::parseStr(const std::string &string, const bool createVar, const bool getVal) {
     std::string parsed;
     if (createVar) { // if creating the string variable
         std::string parsedStr;
@@ -67,7 +67,7 @@ std::string console::parseStr(std::string string, bool createVar, bool getVal) {
     return parsed;
 }
 
-void console::parseRCall(std::string string) {
+void console::parseRCall(const std::string &string) {
     function functionHandler;
     std::string parsedName;
     int parsedRepeats;
@@ -84,7 +84,7 @@ void console::parseRCall(std::string string) {
     functionHandler.rcallFunction(parsedName, parsedRepeats);
 }
 
-std::string console::parseFloat(std::string string, bool createVar, bool getVal) {
+std::string console::parseFloat(const std::string &string, const bool createVar, const bool getVal) {
     std::string parsed;
     if (createVar) { // if creating the float variable
         std::string parsedFloatStr;
@@ -110,7 +110,7 @@ std::string console::parseFloat(std::string string, bool createVar, bool getVal)
     return parsed;
 }
 
-std::string console::parseFile(std::string string, bool isWrite, bool isCreate, bool isDel) {
+std::string console::parseFile(const std::string &string, const bool isWrite, const bool isCreate, const bool isDel) {
     filesys fileSysHandler;
     variables variableHandler;
     std::string parsed;
@@ -159,7 +159,7 @@ std::string console::parseFile(std::string string, bool isWrite, bool isCreate, 
     return parsedContent;
 }
 
-bool console::parseIf(std::string string, bool notIf) {
+bool console::parseIf(const std::string &string, const bool notIf) {
     if (notIf) { // if checking if NOT value
         std::string parsedFirst;
         std::string parsedSecond;
@@ -251,7 +251,7 @@ bool console::parseIf(std::string string, bool notIf) {
     }
 }
 
-std::string console::push(std::string string) { // console::push logic
+std::string console::push(const std::string &string) { // console::push logic
     std::string parsed; // parsed string to push
     if (string.find("(\"") != std::string::npos) { // pushing regular string
         parsed = console::parse(string, true);
@@ -272,6 +272,6 @@ std::string console::push(std::string string) { // console::push logic
     return parsed;
 }
 
-void console::command(std::string consoleCommand) { // execute system command
+void console::command(const std::string &consoleCommand) { // execute system command
     std::system(consoleCommand.c_str());
 }
