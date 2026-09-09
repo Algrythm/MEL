@@ -129,7 +129,7 @@ Take user input from the terminal, and save it to the input varmap.
 
 Save a string to the string varmap.
 
-##### .f\<variableName\> = (123);
+##### .f\<variableName\> = (type: float OR type: expression);
 
 Save a float to the float varmap.
 
