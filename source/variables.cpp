@@ -15,8 +15,8 @@ void variables::createFloatVar(const std::string &name, const float content) {
 }
 
 void variables::createInputVar(const std::string &name) {
-    char input[100];
-    std::cin.getline(input, sizeof(input));
+    std::string input;
+    std::getline(std::cin, input);
     inputVars[name] = input;
 }
 

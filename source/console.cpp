@@ -87,17 +87,23 @@ void console::parseRCall(const std::string &string) {
 std::string console::parseFloat(const std::string &string, const bool createVar, const bool getVal) {
     std::string parsed;
     if (createVar) { // if creating the float variable
+        variables variableHandler;
+        expression expressionHandler;
         std::string parsedFloatStr;
         float parsedFloat;
-        variables variableHandler;
         unsigned start = string.find(".f<")+3; // start past opening
         unsigned end = string.find(">"); // end before closing
         unsigned startC = string.find("= (")+3; // start past opening content
         unsigned endC = string.find(");"); // end before closing content
         parsed = string.substr(start,end-start);
         parsedFloatStr = string.substr(startC,endC-startC);
-        parsedFloat = std::stof(parsedFloatStr);
-        variableHandler.createFloatVar(parsed, parsedFloat);
+        if (expressionHandler.isExpression(parsedFloatStr)) { // if it is an expression
+            parsedFloat = expressionHandler.parseExpression(parsedFloatStr);
+            variableHandler.createFloatVar(parsed, parsedFloat);
+        } else { // if not an expression
+            parsedFloat = std::stof(parsedFloatStr);
+            variableHandler.createFloatVar(parsed, parsedFloat);
+        }
     } else { // if accessing premade float variable
         variables variableHandler;
         unsigned start = string.find("f<")+2; // start past opening

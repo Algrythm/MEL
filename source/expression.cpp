@@ -1,27 +1,52 @@
 #include <iostream>
 #include "expression.h"
 #include <vector>
+#include <algorithm>
+#include <array>
 #include <sstream>
 
-float expression::parseExpression(const std::string &expString) const {
-    int iterations = 0;
-    float solvedFloat = 0;
-    std::stringstream ss(expString);
-    std::string item;
-    std::vector<std::string> items = {};
+std::array<char, 4> operators = {'+', '-', '/', '*'};
 
-    while (ss >> item) {
-        items.push_back(item);
-        iterations++;
+float expression::parseExpression(const std::string &expString) const {
+    float solvedFloat = 0; // returned float
+    std::vector<std::string> tokens; // all tokens in expression
+    char lastOperator; // operator preceding current operand
+    std::string token; // current working token
+    std::stringstream ss(expString);
+
+    while (ss >> token) {
+        tokens.push_back(token);
     }
 
-    for (int i = 0; i < iterations; i++) {
-        if (std::isdigit(items[i][0])) {
-            if (items[i+1] == "+") {
-                solvedFloat = std::stof(items[i]) + std::stof(items[i+2]);
-                i = i + 2;
+    for (int i = 0; i < tokens.size(); i++) {
+        if (i == 0) { // if this is the first operand of the expression
+            solvedFloat = std::stof(tokens[i]);
+        } else if (!std::isdigit(tokens[i][0])) { // if token is an operator
+            lastOperator = tokens[i][0];
+        } else { // this is an operand, not the first operand
+            switch (lastOperator) {
+                case '+':
+                    solvedFloat += std::stof(tokens[i]);
+                    break;
+                case '-':
+                    solvedFloat -= std::stof(tokens[i]);
+                    break;
+                case '/':
+                    solvedFloat /= std::stof(tokens[i]);
+                    break;
+                case '*':
+                    solvedFloat *= std::stof(tokens[i]);
+                    break;
             }
         }
     }
+
     return solvedFloat;
+}
+
+bool expression::isExpression(const std::string &expString) const {
+    for (int i = 0; i < operators.size(); i++) {
+        if (expString.find(operators[i]) != std::string::npos) {return true;} // if an operator is found in the string, return true
+    }
+    return false; // else false
 }
