@@ -259,6 +259,7 @@ bool console::parseIf(const std::string &string, const bool notIf) {
 
 std::string console::push(const std::string &string) { // console::push logic
     std::string parsed; // parsed string to push
+    const expression expInterp; // expression class
     if (string.find("(\"") != std::string::npos) { // pushing regular string
         parsed = console::parse(string, true);
     } else if (string.find("(s<") != std::string::npos) { // pushing string variable
@@ -268,8 +269,7 @@ std::string console::push(const std::string &string) { // console::push logic
     } else if (string.find("(i<") != std::string::npos) { // pushing input variable
         parsed = console::parseInput(string, false, true);
     } else { // pushing numbers
-        if (string.find("+") != std::string::npos) { // if pushing math
-            const expression expInterp; // expression class
+        if (expInterp.isExpression(string)) { // if pushing math
             parsed = std::to_string((expInterp.parseExpression(console::parse(string, false)))); // parsed expression result
         } else { // if pushing one number
             parsed = console::parse(string, false); // 
