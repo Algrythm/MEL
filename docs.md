@@ -8,11 +8,11 @@ The console module is the main module in MEL, granting access to many features o
 
 
 
-##### console::push(type: string\[String] OR type: variable);
+##### console::push(type: string\[String] OR type: variable OR type: expression);
 
 Print a message into the terminal, flush the buffer, and create a newline.
 
-##### console::write(type: string\[String] OR type: variable);
+##### console::write(type: string\[String] OR type: variable OR type: expression);
 
 Print a message into the terminal.
 
