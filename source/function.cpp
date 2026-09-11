@@ -21,7 +21,7 @@ int function::callFunction(const std::string &name) { // locate function in prei
 }
 
 int function::rcallFunction(const std::string &name, const int repeats) { // locate function in preimported function directory and interpret the amount of times specified
-    int curLine = 0;;
+    int curLine = 0;
     time_t curTime;
     variables variableHandler;
     for (int i = 0; i < repeats; i++) {
