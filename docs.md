@@ -112,6 +112,10 @@ Greatest possible number on the current system. Generally 2147483647 on modern d
 
 String version of the current epoch time.
 
+##### delay(type: integer)
+
+Pause execution for a given integer amount of time.
+
 ##### Indentation
 
 The MEL Interpreter is only built to handle indents that consist of 4 spaces. Any more or less will cause errors, and it is highly recommended that you either only use 4 space indents or do not use indentation at all. The MEL Interpreter does not need indentation to complete parsing.

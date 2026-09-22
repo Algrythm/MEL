@@ -69,15 +69,30 @@ std::string console::parseStr(const std::string &string, const bool createVar, c
 
 void console::parseRCall(const std::string &string) {
     function functionHandler;
+    variables variableHandler;
     std::string parsedName;
     int parsedRepeats;
+    std::string unparsedRepeats;
     unsigned start = string.find("(\"")+2; // start past opening
     unsigned end = string.find("\", "); // end before closing
     unsigned start2 = string.find(", ")+2; // start past opening
     unsigned end2 = string.find(");"); // end before closing
     parsedName = string.substr(start,end-start);
-    if (string.substr(start2, end2-start2) == "||max||") {
+    unparsedRepeats = string.substr(start2, end2-start2);
+    if (unparsedRepeats == "||max||") {
         parsedRepeats = std::numeric_limits<int>::max();
+    } else if (unparsedRepeats.find("<") != std::string::npos) { // variable detected
+        if (unparsedRepeats.find("i<") != std::string::npos) { // input variable
+            unsigned start3 = unparsedRepeats.find("i<")+2;
+            unsigned end3 = unparsedRepeats.find(">");
+            unparsedRepeats = unparsedRepeats.substr(start3,end3-start3); // parsed variable name
+            parsedRepeats = std::stoi(variableHandler.getInputVar(unparsedRepeats)); // set parsed repeats to parsed input var value.
+        } else if (unparsedRepeats.find("f<") != std::string::npos) {
+            unsigned start3 = unparsedRepeats.find("f<")+2;
+            unsigned end3 = unparsedRepeats.find(">");
+            unparsedRepeats = unparsedRepeats.substr(start3,end3-start3); // parsed variable name
+            parsedRepeats = static_cast<int>(variableHandler.getFloatVar(unparsedRepeats)); // convert float to int
+        }
     } else {
         parsedRepeats = std::stoi(string.substr(start2, end2-start2));
     }

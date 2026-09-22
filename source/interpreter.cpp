@@ -4,6 +4,8 @@
 #include "console.h"
 #include "expression.h"
 #include <sstream>
+#include <chrono>
+#include <thread>
 #include <vector>
 #include <filesystem>
 #include "filesys.h"
@@ -75,6 +77,9 @@ int interpret(std::string line, const int lineNum) {
             } else if (line.substr(0,6) == "rcall(") {
                 consoleInterp.parseRCall(line);
                 return 0;
+            } else if (line.substr(0,6) == "delay("){
+                std::string delayTime = consoleInterp.parse(line, false);
+                std::this_thread::sleep_for(std::chrono::seconds(std::stoi(delayTime))); // convert delaytime to int and sleep thread
             } else if (line.substr(0,11) == "terminate()") {
                 exit(0);
             } else if (line.substr(0,7) == "filesys") {
