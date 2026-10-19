@@ -55,7 +55,7 @@ int interpret(std::string line, const int lineNum) {
             } else if (line.substr(0,3) == "if(") {
                 ifSkip = !consoleInterp.parseIf(line, false); // negative parseif to determine whether to skip
             } else if (line.substr(0,4) == "ifn(") {
-                ifSkip = !consoleInterp.parseIf(line, true); // negative parseif to determine whether to skip, not if true.
+                ifSkip = !consoleInterp.parseIf(line, true); // negative parseif to determine whether to skip, if not true.
             } else if (line.substr(0,7) == "#import") {
                 function functionHandler;
                 functionHandler.importFunctions(consoleInterp.parse(line, true));

@@ -277,11 +277,11 @@ std::string console::push(const std::string &string) { // console::push logic
     const expression expInterp; // expression class
     if (string.find("(\"") != std::string::npos) { // pushing regular string
         parsed = console::parse(string, true);
-    } else if (string.find("(s<") != std::string::npos) { // pushing string variable
+    } else if (string.find("(s<") != std::string::npos && !expInterp.isExpression(string)) { // pushing string variable
         parsed = console::parseStr(string, false, true);
-    } else if (string.find("(f<") != std::string::npos) { // pushing float variable
+    } else if (string.find("(f<") != std::string::npos && !expInterp.isExpression(string)) { // pushing float variable
         parsed = console::parseFloat(string, false, true);
-    } else if (string.find("(i<") != std::string::npos) { // pushing input variable
+    } else if (string.find("(i<") != std::string::npos && !expInterp.isExpression(string)) { // pushing input variable
         parsed = console::parseInput(string, false, true);
     } else { // pushing numbers
         if (expInterp.isExpression(string)) { // if pushing math

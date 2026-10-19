@@ -3,11 +3,13 @@
 #include <vector>
 #include <algorithm>
 #include <array>
+#include "console.h"
 #include <sstream>
 
 std::array<char, 4> operators = {'+', '-', '/', '*'};
 
 float expression::parseExpression(const std::string &expString) const {
+    console consoleInterp;
     float solvedFloat = 0; // returned float
     std::vector<std::string> tokens; // all tokens in expression
     char lastOperator; // operator preceding current operand
@@ -20,22 +22,47 @@ float expression::parseExpression(const std::string &expString) const {
 
     for (int i = 0; i < tokens.size(); i++) {
         if (i == 0) { // if this is the first operand of the expression
-            solvedFloat = std::stof(tokens[i]);
-        } else if (!std::isdigit(tokens[i][0])) { // if token is an operator
+            if (tokens[i].find("f<") != std::string::npos) { // if accessing variable
+                tokens[i] = consoleInterp.parseFloat(tokens[i], false, true); // get float variable content
+                solvedFloat = std::stof(tokens[i]);
+            } else {
+                solvedFloat = std::stof(tokens[i]);
+            }
+        } else if (!std::isdigit(tokens[i][0]) && tokens[i].find("f<") == std::string::npos) { // if token is an operator and not a variable
             lastOperator = tokens[i][0];
         } else { // this is an operand, not the first operand
             switch (lastOperator) {
                 case '+':
-                    solvedFloat += std::stof(tokens[i]);
+                    if (tokens[i].find("f<") != std::string::npos) { // if accessing variable
+                        tokens[i] = consoleInterp.parseFloat(tokens[i], false, true); // get float variable content
+                        solvedFloat += std::stof(tokens[i]);
+                    } else {
+                        solvedFloat += std::stof(tokens[i]);
+                    }
                     break;
                 case '-':
-                    solvedFloat -= std::stof(tokens[i]);
+                    if (tokens[i].find("f<") != std::string::npos) { // if accessing variable
+                        tokens[i] = consoleInterp.parseFloat(tokens[i], false, true); // get float variable content
+                        solvedFloat -= std::stof(tokens[i]);
+                    } else {
+                        solvedFloat -= std::stof(tokens[i]);
+                    }
                     break;
                 case '/':
-                    solvedFloat /= std::stof(tokens[i]);
+                    if (tokens[i].find("f<") != std::string::npos) { // if accessing variable
+                        tokens[i] = consoleInterp.parseFloat(tokens[i], false, true); // get float variable content
+                        solvedFloat /= std::stof(tokens[i]);
+                    } else {
+                        solvedFloat /= std::stof(tokens[i]);
+                    }
                     break;
                 case '*':
-                    solvedFloat *= std::stof(tokens[i]);
+                    if (tokens[i].find("f<") != std::string::npos) { // if accessing variable
+                        tokens[i] = consoleInterp.parseFloat(tokens[i], false, true); // get float variable content
+                        solvedFloat *= std::stof(tokens[i]);
+                    } else {
+                        solvedFloat *= std::stof(tokens[i]);
+                    }
                     break;
             }
         }
